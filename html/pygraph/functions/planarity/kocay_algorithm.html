@@ -1,0 +1,1818 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>pygraph.functions.planarity.kocay_algorithm API documentation</title>
+<meta name="description" content="Implementing planarity testing as per &#34;The Hopcroft-Tarjan Planarity Algorithm&#34; by William Kocay
+Location: …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>pygraph.functions.planarity.kocay_algorithm</code></h1>
+</header>
+<section id="section-intro">
+<p>Implementing planarity testing as per "The Hopcroft-Tarjan Planarity Algorithm" by William Kocay
+Location: <a href="http://www.combinatorialmath.ca/G&amp;G/articles/planarity.pdf">http://www.combinatorialmath.ca/G&amp;G/articles/planarity.pdf</a></p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+Implementing planarity testing as per &#34;The Hopcroft-Tarjan Planarity Algorithm&#34; by William Kocay
+Location: http://www.combinatorialmath.ca/G&amp;G/articles/planarity.pdf
+&#34;&#34;&#34;
+
+from collections import deque
+
+from ..searching.depth_first_search import depth_first_search_with_parent_data
+
+
+&#34;&#34;&#34;
+In programming the Hopcroft-Tarjan algorithm one first begins with
+the LowPtDFS in order to determine L1(v) and L2(v). The adjacency lists
+are then sorted by weight. Next, the BranchPtDFS can be executed in
+order to establish the first node in Adj[u]. Then EmbedBranch is executed
+in order to construct the lists LF and RF which determine the combina-
+torial embedding of G. An alternative is to combine BranchPtDFS and
+EmbedBranch into a single DFS, which is easy to do.
+&#34;&#34;&#34;
+
+
+
+def kocay_planarity_test(graph):
+    &#34;&#34;&#34;Determines whether a graph is planar.&#34;&#34;&#34;
+
+    # We first have to calculate the DFS-tree of the graph, so we can calculate the edge weights to determine
+    # the order of embedding of the branches
+    adj = __calculate_adjacency_lists(graph)
+    dfs_data = __setup_dfs_data(graph, adj)
+
+    # Now that we have enough information to sort the edges, we should do so and then recalculate the DFS tree
+    adj = __sort_adjacency_lists(dfs_data)
+    dfs_data = __setup_dfs_data(graph, adj)
+
+    # We now have the information we need to calculate the branch points
+    __branch_point_dfs(dfs_data)
+    #b_u_lookup =__calculate_bu_dfs(dfs_data)
+    #dfs_data[&#39;b_u_lookup&#39;] = b_u_lookup
+
+    # Now that everything is calculated and ordered, we can attempt to embed the graph
+    is_planar = __embed_branch(dfs_data)
+
+    return is_planar
+
+def __setup_dfs_data(graph, adj):
+    &#34;&#34;&#34;Sets up the dfs_data object, for consistency.&#34;&#34;&#34;
+    dfs_data = __get_dfs_data(graph, adj)
+
+    dfs_data[&#39;graph&#39;] = graph
+    dfs_data[&#39;adj&#39;] = adj
+
+    L1, L2 = __low_point_dfs(dfs_data)
+    dfs_data[&#39;lowpoint_1_lookup&#39;] = L1
+    dfs_data[&#39;lowpoint_2_lookup&#39;] = L2
+
+    edge_weights = __calculate_edge_weights(dfs_data)
+    dfs_data[&#39;edge_weights&#39;] = edge_weights
+
+    return dfs_data
+
+
+def __low_point_dfs(dfs_data):
+    &#34;&#34;&#34;Calculates the L1 and L2 for each vertex.&#34;&#34;&#34;
+    L1, L2 = __get_all_lowpoints(dfs_data)
+    return (L1, L2)
+
+
+def __calculate_edge_weights(dfs_data):
+    &#34;&#34;&#34;Calculates the weight of each edge, for embedding-order sorting.&#34;&#34;&#34;
+    graph = dfs_data[&#39;graph&#39;]
+
+    weights = {}
+    for edge_id in graph.get_all_edge_ids():
+        edge_weight = __edge_weight(edge_id, dfs_data)
+        weights[edge_id] = edge_weight
+
+    return weights
+
+
+def __sort_adjacency_lists(dfs_data):
+    &#34;&#34;&#34;Sorts the adjacency list representation by the edge weights.&#34;&#34;&#34;
+    new_adjacency_lists = {}
+
+    adjacency_lists = dfs_data[&#39;adj&#39;]
+    edge_weights = dfs_data[&#39;edge_weights&#39;]
+    edge_lookup = dfs_data[&#39;edge_lookup&#39;]
+
+    for node_id, adj_list in adjacency_lists.items():
+        node_weight_lookup = {}
+        frond_lookup = {}
+        for node_b in adj_list:
+            edge_id = dfs_data[&#39;graph&#39;].get_first_edge_id_by_node_ids(node_id, node_b)
+            node_weight_lookup[node_b] = edge_weights[edge_id]
+            frond_lookup[node_b] = 1 if edge_lookup[edge_id] == &#39;backedge&#39; else 2
+
+        # Fronds should be before branches if the weights are equal
+        new_list = sorted(adj_list, key=lambda n: frond_lookup[n])
+
+        # Sort by weights
+        new_list.sort(key=lambda n: node_weight_lookup[n])
+
+        # Add the new sorted list to the new adjacency list lookup table
+        new_adjacency_lists[node_id] = new_list
+
+    return new_adjacency_lists
+
+
+def __branch_point_dfs(dfs_data):
+    &#34;&#34;&#34;DFS that calculates the b(u) and N(u) lookups, and also reorders the adjacency lists.&#34;&#34;&#34;
+    u = dfs_data[&#39;ordering&#39;][0]
+    large_n = {}
+    large_n[u] = 0
+    stem = {}
+    stem[u] = u
+    b = {}
+    b[u] = 1
+    __branch_point_dfs_recursive(u, large_n, b, stem, dfs_data)
+    dfs_data[&#39;N_u_lookup&#39;] = large_n
+    dfs_data[&#39;b_u_lookup&#39;] = b
+    return
+
+
+def __branch_point_dfs_recursive(u, large_n, b, stem, dfs_data):
+    &#34;&#34;&#34;A recursive implementation of the BranchPtDFS function, as defined on page 14 of the paper.&#34;&#34;&#34;
+    first_vertex = dfs_data[&#39;adj&#39;][u][0]
+    large_w = wt(u, first_vertex, dfs_data)
+    if large_w % 2 == 0:
+        large_w += 1
+    v_I = 0
+    v_II = 0
+    for v in [v for v in dfs_data[&#39;adj&#39;][u] if wt(u, v, dfs_data) &lt;= large_w]:
+        stem[u] = v # not in the original paper, but a logical extension based on page 13
+        if a(v, dfs_data) == u: # uv is a tree edge
+            large_n[v] = 0
+            if wt(u, v, dfs_data) % 2 == 0:
+                v_I = v
+            else:
+                b_u = b[u]
+                l2_v = L2(v, dfs_data)
+                #if l2_v &gt; b_u:
+                    # If this is true, then we&#39;re not on a branch at all
+                #    continue
+                if l2_v &lt; b_u:
+                    large_n[v] = 1
+                elif b_u != 1:
+                    #print stem
+                    #print dfs_data[&#39;lowpoint_2_lookup&#39;]
+                    #print b
+                    xnode = stem[l2_v]
+                    if large_n[xnode] != 0:
+                        large_n[v] = large_n[xnode] + 1
+                    elif dfs_data[&#39;graph&#39;].adjacent(u, L1(v, dfs_data)):
+                        large_n[v] = 2
+                    else:
+                        large_n[v] = large_n[u]
+                if large_n[v] % 2 == 0:
+                    v_II = v
+                    break # Goto 1
+    if v_II != 0:
+        # Move v_II to head of Adj[u]
+        dfs_data[&#39;adj&#39;][u].remove(v_II)
+        dfs_data[&#39;adj&#39;][u].insert(0, v_II)
+    elif v_I != 0:
+        # Move v_I to head of Adj[u]
+        dfs_data[&#39;adj&#39;][u].remove(v_I)
+        dfs_data[&#39;adj&#39;][u].insert(0, v_I)
+    first_time = True
+    for v in dfs_data[&#39;adj&#39;][u]:
+        if a(v, dfs_data) == u:
+            b[v] = u
+            if first_time:
+                b[v] = b[u]
+            elif wt(u, v, dfs_data) % 2 == 0:
+                large_n[v] = 0
+            else:
+                large_n[v] = 1
+            stem[u] = v
+            __branch_point_dfs_recursive(v, large_n, b, stem, dfs_data)
+        first_time = False
+    return
+
+
+def __embed_branch(dfs_data):
+    &#34;&#34;&#34;Builds the combinatorial embedding of the graph. Returns whether the graph is planar.&#34;&#34;&#34;
+    u = dfs_data[&#39;ordering&#39;][0]
+    dfs_data[&#39;LF&#39;] = []
+    dfs_data[&#39;RF&#39;] = []
+    dfs_data[&#39;FG&#39;] = {}
+    n = dfs_data[&#39;graph&#39;].num_nodes()
+    f0 = (0, n)
+    g0 = (0, n)
+    L0 = {&#39;u&#39;: 0, &#39;v&#39;: n}
+    R0 = {&#39;x&#39;: 0, &#39;y&#39;: n}
+    dfs_data[&#39;LF&#39;].append(f0)
+    dfs_data[&#39;RF&#39;].append(g0)
+    dfs_data[&#39;FG&#39;][0] = [L0, R0]
+    dfs_data[&#39;FG&#39;][&#39;m&#39;] = 0
+    dfs_data[&#39;FG&#39;][&#39;l&#39;] = 0
+    dfs_data[&#39;FG&#39;][&#39;r&#39;] = 0
+
+    #print &#39;DFS Ordering: {}&#39;.format(dfs_data[&#39;ordering&#39;])
+    #for node in dfs_data[&#39;ordering&#39;]:
+        #print &#39;{}: {}&#39;.format(node, dfs_data[&#39;adj&#39;][node])
+
+    nonplanar = __embed_branch_recursive(u, dfs_data)
+
+    #print &#34;Nonplanar:&#34;, nonplanar
+
+    return not nonplanar
+
+
+def __embed_branch_recursive(u, dfs_data):
+    &#34;&#34;&#34;A recursive implementation of the EmbedBranch function, as defined on pages 8 and 22 of the paper.&#34;&#34;&#34;
+    #print &#34;\nu: {}\nadj: {}&#34;.format(u, dfs_data[&#39;adj&#39;][u])
+
+    #print &#39;Pre-inserts&#39;
+    #print &#34;FG: {}&#34;.format(dfs_data[&#39;FG&#39;])
+    #print &#34;LF: {}&#34;.format(dfs_data[&#39;LF&#39;])
+    #print &#34;RF: {}&#34;.format(dfs_data[&#39;RF&#39;])
+
+    for v in dfs_data[&#39;adj&#39;][u]:
+        #print &#34;\nu, v: {}, {}&#34;.format(u, v)
+        #print &#34;dfs_u, dfs_v: {}, {}&#34;.format(D(u, dfs_data), D(v, dfs_data))
+        nonplanar = True
+        if a(v, dfs_data) == u:
+            #print &#39;Ancestor block entered:&#39;, u, v
+            if b(v, dfs_data) == u:
+                successful = __insert_branch(u, v, dfs_data)
+                if not successful:
+                    #print &#39;InsertBranch({}, {}) Failed&#39;.format(u, v)
+                    nonplanar = True
+                    return nonplanar
+            nonplanar = __embed_branch_recursive(v, dfs_data)
+            if nonplanar:
+                return nonplanar
+        elif is_frond(u, v, dfs_data):
+            #print &#39;Frond block entered:&#39;, u, v
+            successful = __embed_frond(u, v, dfs_data)
+            if not successful:
+                #print &#39;EmbedFrond({}, {}) Failed&#39;.format(u, v)
+                nonplanar = True
+                return nonplanar
+
+            #print &#39;Post EmbedFrond&#39;
+            #print &#34;FG: {}&#34;.format(dfs_data[&#39;FG&#39;])
+            #print &#34;LF: {}&#34;.format(dfs_data[&#39;LF&#39;])
+            #print &#34;RF: {}&#34;.format(dfs_data[&#39;RF&#39;])
+        else:
+            # This block is totally valid, and there will be multiple cases when it gets hit.
+            # We only want to do things if an edge is a tree edge (parent to child along the spine of the DFS tree),
+            # or if it&#39;s a frond edge (an edge moving up the tree from lower along the spine).
+            # Every non-tree edge will eventually get handled by the frond edge code as we recurse up the spine.
+            pass
+    #print &#34;{}: Should be planar&#34;.format(u)
+
+    #print &#39;Post-inserts&#39;
+    #print &#34;FG: {}&#34;.format(dfs_data[&#39;FG&#39;])
+    #print &#34;LF: {}&#34;.format(dfs_data[&#39;LF&#39;])
+    #print &#34;RF: {}&#34;.format(dfs_data[&#39;RF&#39;])
+
+    nonplanar = False
+    return nonplanar
+
+
+def __insert_branch(u, v, dfs_data):
+    &#34;&#34;&#34;Embeds a branch Bu(v) (as described on page 22 of the paper). Returns whether the embedding was successful.&#34;&#34;&#34;
+    w = L1(v, dfs_data)
+    d_u = D(u, dfs_data)
+    d_w = D(w, dfs_data)
+
+    # Embed uw
+    successful = __embed_frond(u, w, dfs_data)
+    if not successful:
+        return False
+
+    # Embed a branch marker uu on the side opposite to uw, in the same frond block
+    #successful = __embed_frond(u, v, dfs_data, as_branch_marker=True)
+    successful = __embed_frond(u, u, dfs_data, as_branch_marker=True)
+    if not successful:
+        return False
+
+    return True
+
+
+def __embed_frond(node_u, node_w, dfs_data, as_branch_marker=False):
+    &#34;&#34;&#34;Embeds a frond uw into either LF or RF. Returns whether the embedding was successful.&#34;&#34;&#34;
+    d_u = D(node_u, dfs_data)
+    d_w = D(node_w, dfs_data)
+
+    comp_d_w = abs(d_w)
+    if as_branch_marker:
+        d_w *= -1
+        if dfs_data[&#39;last_inserted_side&#39;] == &#39;LF&#39;:
+            __insert_frond_RF(d_w, d_u, dfs_data)
+        else:
+            # We default to inserting a branch marker on the left side, unless we know otherwise
+            __insert_frond_LF(d_w, d_u, dfs_data)
+        return True
+
+    LF = dfs_data[&#39;LF&#39;]
+    m = dfs_data[&#39;FG&#39;][&#39;m&#39;]
+    l_w = lw(dfs_data)
+    r_w = rw(dfs_data)
+    u_m = u(m, dfs_data)
+    x_m = fn_x(m, dfs_data)
+
+    # There are multiple cases for both u and w
+    # --Detect the case for u and store it for handling once the case for w is determined
+    case_1 = False
+    case_2 = False
+    case_3 = False
+
+    if d_u &gt; u_m and d_u &gt; x_m:
+        case_1 = True
+    elif d_u &lt;= u_m and d_u &gt; x_m:
+        case_2 = True
+    elif d_u &gt; u_m and d_u &lt;= x_m:
+        case_3 = True
+    else:
+        # We should never get here, return false because there&#39;s no way we can embed this frond
+        #print &#34;Invalid u-case detected: (d_u, u_m, x_m): ({}, {}, {})&#34;.format(d_u, u_m, x_m)
+        #print &#34;FG: {}&#34;.format(dfs_data[&#39;FG&#39;])
+        #print &#34;LF: {}&#34;.format(dfs_data[&#39;LF&#39;])
+        #print &#34;RF: {}&#34;.format(dfs_data[&#39;RF&#39;])
+        return False
+
+    # --Detect the case for w and process the edge appropriately
+    if comp_d_w &gt;= l_w and comp_d_w &gt;= r_w:
+        # Case 4
+        #print &#34;w-case 4 reached&#34;
+        # --We do the same thing for all three u-cases: Add the frond to the left side
+        __insert_frond_LF(d_w, d_u, dfs_data)
+
+        dfs_data[&#39;FG&#39;][&#39;m&#39;] += 1
+        m = dfs_data[&#39;FG&#39;][&#39;m&#39;]
+        n = dfs_data[&#39;graph&#39;].num_nodes()
+
+        Lm = {&#39;u&#39;: d_w, &#39;v&#39;: d_u}
+        Rm = {&#39;x&#39;: n, &#39;y&#39;: 0} # See page 17 for how we deal with Ri being empty
+        #Rm = {}
+        dfs_data[&#39;FG&#39;][m] = [Lm, Rm]
+        return True
+    elif comp_d_w &gt;= l_w and comp_d_w &lt; r_w:
+        # Case 5
+        #print &#34;w-case 5 reached&#34;
+        return __do_case_5_work(d_w, d_u, case_1, case_2, case_3, dfs_data)
+    elif comp_d_w &lt; l_w and comp_d_w &gt;= r_w:
+        # Case 6
+        #print &#34;w-case 6 reached&#34;
+        return __do_case_6_work(d_w, d_u, case_1, case_2, case_3, dfs_data)
+    elif comp_d_w &lt; l_w and comp_d_w &lt; r_w:
+        # Case 7
+        #print &#34;w-case 7 reached&#34;
+        #print &#34;FG: {}&#34;.format(dfs_data[&#39;FG&#39;])
+        #print &#34;LF: {}&#34;.format(dfs_data[&#39;LF&#39;])
+        #print &#34;RF: {}&#34;.format(dfs_data[&#39;RF&#39;])
+        #print &#34;(d_w, l_w, r_w): ({}, {}, {})&#34;.format(d_w, l_w, r_w)
+        #print &#34;(d_u, u_m, x_m, m): ({}, {}, {}, {})&#34;.format(d_u, u_m, x_m, m)
+        while comp_d_w &lt; l_w and comp_d_w &lt; r_w:
+            if d_u &gt; u_m and d_u &gt; x_m:
+                #print &#34;Nonplanar case reached: u-case 1, w-case 7&#34;
+                #print &#34;FG: {}&#34;.format(dfs_data[&#39;FG&#39;])
+                #print &#34;LF: {}&#34;.format(dfs_data[&#39;LF&#39;])
+                #print &#34;RF: {}&#34;.format(dfs_data[&#39;RF&#39;])
+                #print &#34;(d_w, l_w, r_w): ({}, {}, {})&#34;.format(d_w, l_w, r_w)
+                #print &#34;(d_u, u_m, x_m, m): ({}, {}, {}, {})&#34;.format(d_u, u_m, x_m, m)
+                return False
+            switch_sides(d_u, dfs_data)
+
+            # --Update the local variables fo the next loop iteration
+            l_w = lw(dfs_data)
+            r_w = rw(dfs_data)
+            m = dfs_data[&#39;FG&#39;][&#39;m&#39;]
+            u_m = u(m, dfs_data)
+            x_m = fn_x(m, dfs_data)
+
+        case_1 = False
+        case_2 = False
+        case_3 = False
+        if d_u &lt;= u_m and d_u &gt; x_m:
+            case_2 = True
+        elif d_u &gt; u_m and d_u &lt;= x_m:
+            case_3 = True
+
+        if comp_d_w &gt;= l_w and comp_d_w &lt; r_w:
+            # Case 5 redux
+            #print &#34;w-case 5 redux reached&#34;
+            return __do_case_5_work(d_w, d_u, case_1, case_2, case_3, dfs_data)
+        if comp_d_w &lt; l_w and comp_d_w &gt;= r_w:
+            # Case 6 redux
+            #print &#34;w-case 6 redux reached&#34;
+            return __do_case_6_work(d_w, d_u, case_1, case_2, case_3, dfs_data)
+    else:
+        # We should never get here, return false because there&#39;s no way we can embed this frond
+        #print &#34;Invalid w-case detected&#34;
+        return False
+
+    # We really shouldn&#39;t get to this point, but this is a catch-all just in case
+    #print &#34;Failure catchall reached&#34;
+    return False
+
+
+def __do_case_5_work(d_w, d_u, case_1, case_2, case_3, dfs_data):
+    &#34;&#34;&#34;Encapsulates the work that will be done for case 5 of __embed_frond,
+    since it gets used in more than one place.&#34;&#34;&#34;
+    # --We should only ever see u-cases 1 and 2
+    if case_3:
+        # --We should never get here
+        return False
+
+    comp_d_w = abs(d_w)
+
+    #if case_1:
+    # --Add the frond to the left side
+    __insert_frond_LF(d_w, d_u, dfs_data)
+
+    # --Add uw to Lm
+    m = dfs_data[&#39;FG&#39;][&#39;m&#39;]
+    Lm = L(m, dfs_data)
+    if comp_d_w &lt; Lm[&#39;u&#39;]:
+        Lm[&#39;u&#39;] = d_w
+    if d_u &gt; Lm[&#39;v&#39;]:
+        Lm[&#39;v&#39;] = d_u
+
+    # --Case 2 requires a bit of extra work
+    if case_2:
+        Lm[&#39;u&#39;] = d_w
+        x_m1 = fn_x(m-1, dfs_data)
+        while comp_d_w &lt; x_m1:
+            merge_Fm(dfs_data)
+            m = dfs_data[&#39;FG&#39;][&#39;m&#39;]
+            x_m1 = fn_x(m-1, dfs_data)
+    #else:
+        #print &#34;Case 5 work, u-case 1&#34;
+
+    return True
+
+
+def __do_case_6_work(d_w, d_u, case_1, case_2, case_3, dfs_data):
+    &#34;&#34;&#34;Encapsulates the work that will be done for case 6 of __embed_frond,
+    since it gets used in more than one place.&#34;&#34;&#34;
+    # --We should only ever see u-cases 1 and 3
+    if case_2:
+        # --We should never get here
+        return False
+
+    comp_d_w = abs(d_w)
+
+    # --Add the frond to the right side
+    __insert_frond_RF(d_w, d_u, dfs_data)
+
+    # --Add uw to Rm
+    m = dfs_data[&#39;FG&#39;][&#39;m&#39;]
+    Rm = R(m, dfs_data)
+    if comp_d_w &lt; Rm[&#39;x&#39;]:
+        Rm[&#39;x&#39;] = d_w
+    if d_u &gt; Rm[&#39;y&#39;]:
+        Rm[&#39;y&#39;] = d_u
+
+    # --Case 3 requires a bit of extra work
+    if case_3:
+        Rm[&#39;x&#39;] = d_w
+        u_m1 = u(m-1, dfs_data)
+        while comp_d_w &lt; u_m1:
+            merge_Fm(dfs_data)
+            m = dfs_data[&#39;FG&#39;][&#39;m&#39;]
+            u_m1 = u(m-1, dfs_data)
+    #else:
+        #print &#34;Case 6 work, u-case 1&#34;
+
+    return True
+
+def __insert_frond_RF(d_w, d_u, dfs_data):
+    &#34;&#34;&#34;Encapsulates the process of inserting a frond uw into the right side frond group.&#34;&#34;&#34;
+    # --Add the frond to the right side
+    dfs_data[&#39;RF&#39;].append( (d_w, d_u) )
+    dfs_data[&#39;FG&#39;][&#39;r&#39;] += 1
+
+    dfs_data[&#39;last_inserted_side&#39;] = &#39;RF&#39;
+
+def __insert_frond_LF(d_w, d_u, dfs_data):
+    &#34;&#34;&#34;Encapsulates the process of inserting a frond uw into the left side frond group.&#34;&#34;&#34;
+    # --Add the frond to the left side
+    dfs_data[&#39;LF&#39;].append( (d_w, d_u) )
+    dfs_data[&#39;FG&#39;][&#39;l&#39;] += 1
+
+    dfs_data[&#39;last_inserted_side&#39;] = &#39;LF&#39;
+
+
+def merge_Fm(dfs_data):
+    &#34;&#34;&#34;Merges Fm-1 and Fm, as defined on page 19 of the paper.&#34;&#34;&#34;
+    FG = dfs_data[&#39;FG&#39;]
+    m = FG[&#39;m&#39;]
+    FGm = FG[m]
+    FGm1 = FG[m-1]
+
+    if FGm[0][&#39;u&#39;] &lt; FGm1[0][&#39;u&#39;]:
+        FGm1[0][&#39;u&#39;] = FGm[0][&#39;u&#39;]
+
+    if FGm[0][&#39;v&#39;] &gt; FGm1[0][&#39;v&#39;]:
+        FGm1[0][&#39;v&#39;] = FGm[0][&#39;v&#39;]
+
+    if FGm[1][&#39;x&#39;] &lt; FGm1[1][&#39;x&#39;]:
+        FGm1[1][&#39;x&#39;] = FGm[1][&#39;x&#39;]
+
+    if FGm[1][&#39;y&#39;] &gt; FGm1[1][&#39;y&#39;]:
+        FGm1[1][&#39;y&#39;] = FGm[1][&#39;y&#39;]
+
+    del FG[m]
+    FG[&#39;m&#39;] -= 1
+
+
+def switch_sides(d_u, dfs_data):
+    &#34;&#34;&#34;Switches Lm and Rm, as defined on page 20 of the paper.&#34;&#34;&#34;
+    # global fn_x
+
+    m = dfs_data[&#39;FG&#39;][&#39;m&#39;]
+    u_m = u(m, dfs_data)
+    # x_m = fn_x(m, dfs_data)
+
+    if d_u &lt;= u_m:
+        l_w = lw(dfs_data)
+        u_m1 = u(m-1, dfs_data)
+        while u_m1 &gt; l_w:
+            merge_Fm(dfs_data)
+            m = dfs_data[&#39;FG&#39;][&#39;m&#39;]
+            u_m1 = u(m-1, dfs_data)
+
+        # l_w = r_w is handled dynamically by the switching of fronds below
+
+        # l = r
+        dfs_data[&#39;FG&#39;][&#39;l&#39;] = dfs_data[&#39;FG&#39;][&#39;r&#39;]
+
+        # adjust r so that gr is first frond preceding xm in RF
+        x_m = fn_x(m, dfs_data)
+        r = len(dfs_data[&#39;RF&#39;]) - 1
+        g_r = dfs_data[&#39;RF&#39;][r][0]
+        while g_r &gt;= x_m:
+            r -= 1
+            if r &lt; 0:
+                r = 0
+                break
+            g_r = dfs_data[&#39;RF&#39;][r][0]
+        dfs_data[&#39;FG&#39;][&#39;r&#39;] = r
+
+        # changing r_w is also handled dynamically by the frond switching
+    else:
+        r_w = rw(dfs_data)
+        x_m1 = fn_x(m-1, dfs_data)
+        while x_m1 &gt; r_w:
+            merge_Fm(dfs_data)
+            m = dfs_data[&#39;FG&#39;][&#39;m&#39;]
+            x_m1 = fn_x(m-1, dfs_data)
+
+        # r_w = l_w is handled dynamically by the switching of fronds below
+
+        # r = l
+        dfs_data[&#39;FG&#39;][&#39;r&#39;] = dfs_data[&#39;FG&#39;][&#39;l&#39;]
+
+        # adjust l so that fl is first frond preceding um in LF
+        u_m = u(m, dfs_data)
+        l = len(dfs_data[&#39;LF&#39;]) - 1
+        f_l = dfs_data[&#39;LF&#39;][l][0]
+        while f_l &gt;= u_m:
+            l -= 1
+            f_l = dfs_data[&#39;LF&#39;][l][0]
+        dfs_data[&#39;FG&#39;][&#39;l&#39;] = l
+
+        # changing l_w is also handled dynamically by the frond switching
+
+    m = dfs_data[&#39;FG&#39;][&#39;m&#39;]
+
+    # Exchange the portion of the linked list LF between um and vm with the portion of RF between xm and ym
+    LF = dfs_data[&#39;LF&#39;]
+    RF = dfs_data[&#39;RF&#39;]
+
+    u_m = u(m, dfs_data)
+    v_m = v(m, dfs_data)
+    x_m = fn_x(m, dfs_data)
+    y_m = y(m, dfs_data)
+
+    # --These are the baseline indexes, they should be narrowed appropriately
+    first_left_index = 1
+    last_left_index = len(LF) - 1
+    first_right_index = 1
+    last_right_index = len(RF) - 1
+
+    # --Narrow the left indexes
+    while first_left_index &lt; last_left_index:
+        frond = LF[first_left_index]
+        if u_m &gt;= frond[0]:
+            first_left_index -= 1
+            break
+        else:
+            first_left_index += 1
+
+    while first_left_index &lt; last_left_index:
+        frond = LF[last_left_index]
+        if v_m &lt; frond[1]:
+            last_left_index -= 1
+        else:
+            last_left_index += 1
+            break
+
+    # --Narrow the right indexes
+    while first_right_index &lt; last_right_index:
+        frond = RF[first_right_index]
+        if x_m &gt;= frond[0]:
+            first_right_index -= 1
+            break
+        else:
+            first_right_index += 1
+
+    while first_right_index &lt; last_right_index:
+        frond = RF[last_right_index]
+        if y_m &lt; frond[1]:
+            last_right_index -= 1
+        else:
+            last_right_index += 1
+            break
+
+
+    # --Grab the appropriate list slices from each list
+    LF_slice = LF[first_left_index:last_left_index+1]
+    RF_slice = RF[first_right_index:last_right_index+1]
+
+    # --Remove the slices from each list
+    del LF[first_left_index:last_left_index+1]
+    del RF[first_right_index:last_right_index+1]
+
+    # --Add the slice from the right list to the left list
+    i = first_left_index
+    for x in RF_slice:
+        LF.insert(i, x)
+        i += 1
+
+    # --Add the slice from the left list to the right list
+    i = first_right_index
+    for x in LF_slice:
+        RF.insert(i, x)
+        i += 1
+
+    # Descriptive Note: We can just switch the slices directly because we know that if there were any conflicts from
+    # the switch, those fronds would also have been included in the switch.
+
+    # Exchange um and xm , vm and ym , Lm and Rm
+    # --Only Lm and Rm need to be exchanged, since um, xm, vm, and ym are all dynamically calculated
+    old_rm = dfs_data[&#39;FG&#39;][m][1]
+    old_lm = dfs_data[&#39;FG&#39;][m][0]
+
+    # --We have to convert the Lm and Rm dicts to use the correct keys
+    converted_rm = __convert_RF_dict_to_LF(old_rm)
+    converted_lm = __convert_LF_dict_to_RF(old_lm)
+
+    dfs_data[&#39;FG&#39;][m][1] = converted_lm
+    dfs_data[&#39;FG&#39;][m][0] = converted_rm
+
+    merge_Fm(dfs_data)
+
+def __convert_RF_dict_to_LF(x):
+    &#34;&#34;&#34;Converts a right-side encoded frond dict into a left-side encoded frond dict. x -&gt; u, y -&gt; v&#34;&#34;&#34;
+    new_x = {&#39;u&#39;: x[&#39;x&#39;], &#39;v&#39;: x[&#39;y&#39;]}
+    return new_x
+
+def __convert_LF_dict_to_RF(x):
+    &#34;&#34;&#34;Converts a left-side encoded frond dict into a right-side encoded frond dict. u -&gt; x, v -&gt; y&#34;&#34;&#34;
+    new_x = {&#39;x&#39;: x[&#39;u&#39;], &#39;y&#39;: x[&#39;v&#39;]}
+    return new_x
+
+
+def __check_left_side_conflict(x, y, dfs_data):
+    &#34;&#34;&#34;Checks to see if the frond xy will conflict with a frond on the left side of the embedding.&#34;&#34;&#34;
+    l = dfs_data[&#39;FG&#39;][&#39;l&#39;]
+    w, z = dfs_data[&#39;LF&#39;][l]
+    return __check_conflict_fronds(x, y, w, z, dfs_data)
+
+
+def __check_right_side_conflict(x, y, dfs_data):
+    &#34;&#34;&#34;Checks to see if the frond xy will conflict with a frond on the right side of the embedding.&#34;&#34;&#34;
+    r = dfs_data[&#39;FG&#39;][&#39;r&#39;]
+    w, z = dfs_data[&#39;RF&#39;][r]
+    return __check_conflict_fronds(x, y, w, z, dfs_data)
+
+
+def __check_conflict_fronds(x, y, w, z, dfs_data):
+    &#34;&#34;&#34;Checks a pair of fronds to see if they conflict. Returns True if a conflict was found, False otherwise.&#34;&#34;&#34;
+
+    # Case 1: False frond and corresponding branch marker
+    # --x and w should both be negative, and either xy or wz should be the same value uu
+    if x &lt; 0 and w &lt; 0 and (x == y or w == z):
+        # --Determine if the marker and frond correspond (have the same low-value)
+        if x == w:
+            return True
+        return False
+
+    # Case 2: Fronds with an overlap
+    if b(x, dfs_data) == b(w, dfs_data) and x &gt; w and w &gt; y and y &gt; z:
+        return False
+
+    # Case 3: Branch marker and a frond on that branch
+    if x &lt; 0 or w &lt; 0:
+        # --Determine which one is the branch marker
+        if x &lt; 0:
+            u = abs(x)
+            t = y
+            x = w
+            y = z
+        else:
+            u = abs(w)
+            t = z
+        # --Run the rest of the tests
+        if b(x, dfs_data) == u and y &lt; u and \
+                (x, y) in __dfsify_branch_uv(u, t, dfs_data):
+            return True
+        return False
+
+    # If non of the conflict conditions were met, then there are obviously no conflicts
+    return False
+
+
+def __dfsify_branch_uv(u, v, dfs_data):
+    &#34;&#34;&#34;Helper function to convert the output of Bu(v) from edge ids to dfs-ordered fronds.&#34;&#34;&#34;
+    buv = B(u, v, dfs_data)
+    new_list = []
+    for edge_id in buv:
+        edge = dfs_data[&#39;graph&#39;].get_edge(edge_id)
+        j, k = edge[&#39;vertices&#39;]
+        d_x = D(j, dfs_data)
+        d_y = D(k, dfs_data)
+        if d_x &lt; d_y:
+            smaller = d_x
+            larger = d_y
+        else:
+            smaller = d_y
+            larger = d_x
+        frond = (smaller, larger)
+        new_list.append(frond)
+    return new_list
+
+
+# Helper functions -- these are not directly specified by the overall algorithm, they just calculate intermediate data
+
+def __get_dfs_data(graph, adj=None):
+    &#34;&#34;&#34;Internal function that calculates the depth-first search of the graph.
+    Returns a dictionary with the following data:
+        * &#39;ordering&#39;:        A dfs-ordering list of nodes
+        * &#39;ordering_lookup&#39;: A lookup dict mapping nodes to dfs-ordering
+        * &#39;node_lookup&#39;:     A lookup dict mapping dfs-ordering to nodes
+        * &#39;edge_lookup&#39;:     A lookup dict mapping edges as tree-edges or back-edges
+        * &#39;parent_lookup&#39;:   A lookup dict mapping nodes to their parent node
+        * &#39;children_lookup&#39;: A lookup dict mapping nodes to their children
+    &#34;&#34;&#34;
+    ordering, parent_lookup, children_lookup = depth_first_search_with_parent_data(graph, adjacency_lists=adj)
+    ordering_lookup = dict(zip(ordering, range(1, len(ordering) + 1)))
+    node_lookup = dict(zip(range(1, len(ordering) + 1), ordering))
+    edge_lookup = {}
+
+    for edge_id in graph.get_all_edge_ids():
+        edge = graph.get_edge(edge_id)
+        node_a, node_b = edge[&#39;vertices&#39;]
+        parent_a = parent_lookup[node_a]
+        parent_b = parent_lookup[node_b]
+        if parent_a == node_b or parent_b == node_a:
+            edge_lookup[edge_id] = &#39;tree-edge&#39;
+        else:
+            edge_lookup[edge_id] = &#39;backedge&#39;
+
+    dfs_data = {}
+    dfs_data[&#39;ordering&#39;] = ordering
+    dfs_data[&#39;ordering_lookup&#39;] = ordering_lookup
+    dfs_data[&#39;node_lookup&#39;] = node_lookup
+    dfs_data[&#39;edge_lookup&#39;] = edge_lookup
+    dfs_data[&#39;parent_lookup&#39;] = parent_lookup
+    dfs_data[&#39;children_lookup&#39;] = children_lookup
+
+    return dfs_data
+
+
+def __calculate_adjacency_lists(graph):
+    &#34;&#34;&#34;Builds an adjacency list representation for the graph, since we can&#39;t guarantee that the
+        internal representation of the graph is stored that way.&#34;&#34;&#34;
+    adj = {}
+    for node in graph.get_all_node_ids():
+        neighbors = graph.neighbors(node)
+        adj[node] = neighbors
+    return adj
+
+
+def __get_all_lowpoints(dfs_data):
+    &#34;&#34;&#34;Calculates the lowpoints for each node in a graph.&#34;&#34;&#34;
+    lowpoint_1_lookup = {}
+    lowpoint_2_lookup = {}
+
+    ordering = dfs_data[&#39;ordering&#39;]
+
+    for node in ordering:
+        low_1, low_2 = __get_lowpoints(node, dfs_data)
+        lowpoint_1_lookup[node] = low_1
+        lowpoint_2_lookup[node] = low_2
+
+    return lowpoint_1_lookup, lowpoint_2_lookup
+
+
+def __get_lowpoints(node, dfs_data):
+    &#34;&#34;&#34;Calculates the lowpoints for a single node in a graph.&#34;&#34;&#34;
+
+    ordering_lookup = dfs_data[&#39;ordering_lookup&#39;]
+
+    t_u = T(node, dfs_data)
+    sorted_t_u = sorted(t_u, key=lambda a: ordering_lookup[a])
+    lowpoint_1 = sorted_t_u[0]
+    lowpoint_2 = sorted_t_u[1]
+
+    return lowpoint_1, lowpoint_2
+
+
+def __edge_weight(edge_id, dfs_data):
+    &#34;&#34;&#34;Calculates the edge weight used to sort edges.&#34;&#34;&#34;
+    graph = dfs_data[&#39;graph&#39;]
+    edge_lookup = dfs_data[&#39;edge_lookup&#39;]
+
+    edge = graph.get_edge(edge_id)
+    u, v = edge[&#39;vertices&#39;]
+    d_u = D(u, dfs_data)
+    d_v = D(v, dfs_data)
+    lp_1 = L1(v, dfs_data)
+    d_lp_1 = D(lp_1, dfs_data)
+
+    if edge_lookup[edge_id] == &#39;backedge&#39; and d_v &lt; d_u:
+        return 2*d_v
+    elif is_type_I_branch(u, v, dfs_data):
+        return 2*d_lp_1
+    elif is_type_II_branch(u, v, dfs_data):
+        return 2*d_lp_1 + 1
+    else:
+        return 2*graph.num_nodes() + 1
+
+
+def __calculate_bu_dfs(dfs_data):
+    &#34;&#34;&#34;Calculates the b(u) lookup table.&#34;&#34;&#34;
+    u = dfs_data[&#39;ordering&#39;][0]
+    b = {}
+    b[u] = D(u, dfs_data)
+    __calculate_bu_dfs_recursively(u, b, dfs_data)
+    return b
+
+
+def __calculate_bu_dfs_recursively(u, b, dfs_data):
+    &#34;&#34;&#34;Calculates the b(u) lookup table with a recursive DFS.&#34;&#34;&#34;
+    first_time = True
+    for v in dfs_data[&#39;adj&#39;][u]:
+        if a(v, dfs_data) == u:
+            if first_time:
+                b[v] = b[u]
+            else:
+                b[v] = D(u, dfs_data)
+            __calculate_bu_dfs_recursively(v, b, dfs_data)
+        first_time = False
+
+
+def is_type_I_branch(u, v, dfs_data):
+    &#34;&#34;&#34;Determines whether a branch uv is a type I branch.&#34;&#34;&#34;
+    if u != a(v, dfs_data):
+        return False
+    if u == L2(v, dfs_data):
+        return True
+    return False
+
+
+def is_type_II_branch(u, v, dfs_data):
+    &#34;&#34;&#34;Determines whether a branch uv is a type II branch.&#34;&#34;&#34;
+    if u != a(v, dfs_data):
+        return False
+    if u &lt; L2(v, dfs_data):
+        return True
+    return False
+
+
+def is_leaf(v, dfs_data):
+    &#34;&#34;&#34;Determines if v is a leaf (has no descendants).&#34;&#34;&#34;
+    return True if S(v, dfs_data) else False
+
+
+def is_frond(u, v, dfs_data):
+    &#34;&#34;&#34;Determines if the edge uv is a frond (&#34;backedge&#34;).&#34;&#34;&#34;
+    d_u = D(u, dfs_data)
+    d_v = D(v, dfs_data)
+    edge_id = dfs_data[&#39;graph&#39;].get_first_edge_id_by_node_ids(u, v)
+    return True if dfs_data[&#39;edge_lookup&#39;][edge_id] == &#39;backedge&#39; and d_v &lt; d_u else False
+
+
+def __get_descendants(node, dfs_data):
+    &#34;&#34;&#34;Gets the descendants of a node.&#34;&#34;&#34;
+    list_of_descendants = []
+
+    stack = deque()
+
+    children_lookup = dfs_data[&#39;children_lookup&#39;]
+
+    current_node = node
+    children = children_lookup[current_node]
+    dfs_current_node = D(current_node, dfs_data)
+    for n in children:
+        dfs_child = D(n, dfs_data)
+        # Validate that the child node is actually a descendant and not an ancestor
+        if dfs_child &gt; dfs_current_node:
+            stack.append(n)
+
+    while len(stack) &gt; 0:
+        current_node = stack.pop()
+        list_of_descendants.append(current_node)
+        children = children_lookup[current_node]
+        dfs_current_node = D(current_node, dfs_data)
+        for n in children:
+            dfs_child = D(n, dfs_data)
+            # Validate that the child node is actually a descendant and not an ancestor
+            if dfs_child &gt; dfs_current_node:
+                stack.append(n)
+
+    return list_of_descendants
+
+
+def __top_frond_left(dfs_data):
+    &#34;&#34;&#34;Returns the frond at the top of the LF stack.&#34;&#34;&#34;
+    return dfs_data[&#39;LF&#39;][-1]
+
+
+def __top_frond_right(dfs_data):
+    &#34;&#34;&#34;Returns the frond at the top of the RF stack.&#34;&#34;&#34;
+    return dfs_data[&#39;RF&#39;][-1]
+
+
+# Wrapper functions -- used to keep the syntax roughly the same as that used in the paper
+
+def A(u, dfs_data):
+    &#34;&#34;&#34;The adjacency function.&#34;&#34;&#34;
+    return dfs_data[&#39;adj&#39;][u]
+
+
+def a(v, dfs_data):
+    &#34;&#34;&#34;The ancestor function.&#34;&#34;&#34;
+    return dfs_data[&#39;parent_lookup&#39;][v]
+
+
+def D(u, dfs_data):
+    &#34;&#34;&#34;The DFS-numbering function.&#34;&#34;&#34;
+    return dfs_data[&#39;ordering_lookup&#39;][u]
+
+
+def S(u, dfs_data):
+    &#34;&#34;&#34;The set of all descendants of u.&#34;&#34;&#34;
+    return __get_descendants(u, dfs_data)
+
+
+def S_star(u, dfs_data):
+    &#34;&#34;&#34;The set of all descendants of u, with u added.&#34;&#34;&#34;
+    s_u = S(u, dfs_data)
+    if u not in s_u:
+        s_u.append(u)
+    return s_u
+
+
+def T(u, dfs_data):
+    &#34;&#34;&#34;T(u) consists of all vertices adjacent to u or any descendant of u.&#34;&#34;&#34;
+    return list(set([w for v in S_star(u, dfs_data) for w in A(v, dfs_data)]))
+
+
+def B(u, v, dfs_data):
+    &#34;&#34;&#34;The branch at u containing v is the set of all edges incident on v or any descendant of v, if a(v) == u.&#34;&#34;&#34;
+    &#34;&#34;&#34;Bu(v) = {wx | w is in S*(v)}&#34;&#34;&#34;
+    if a(v, dfs_data) != u:
+        return None
+
+    return list(set([edge_id for w in S_star(v, dfs_data) for edge_id in dfs_data[&#39;graph&#39;].get_node(w)[&#39;edges&#39;]]))
+
+
+def stem(u, v, dfs_data):
+    &#34;&#34;&#34;The stem of Bu(v) is the edge uv in Bu(v).&#34;&#34;&#34;
+    #return dfs_data[&#39;graph&#39;].get_first_edge_id_by_node_ids(u, v)
+    uv_edges = dfs_data[&#39;graph&#39;].get_edge_ids_by_node_ids(u, v)
+    buv_edges = B(u, v, dfs_data)
+    for edge_id in uv_edges:
+        if edge_id in buv_edges:
+            return edge_id
+    return None # We should never, ever get here
+
+
+def L1(v, dfs_data):
+    &#34;&#34;&#34;The L1 lowpoint of the node.&#34;&#34;&#34;
+    return dfs_data[&#39;lowpoint_1_lookup&#39;][v]
+
+
+def L2(v, dfs_data):
+    &#34;&#34;&#34;The L2 lowpoint of the node.&#34;&#34;&#34;
+    return dfs_data[&#39;lowpoint_2_lookup&#39;][v]
+
+
+def wt(u, v, dfs_data):
+    &#34;&#34;&#34;The wt_u[v] function used in the paper.&#34;&#34;&#34;
+    # Determine the edge_id
+    edge_id = dfs_data[&#39;graph&#39;].get_first_edge_id_by_node_ids(u, v)
+    # Pull the weight of that edge
+    return dfs_data[&#39;edge_weights&#39;][edge_id]
+
+
+def _L(dfs_data):
+    &#34;&#34;&#34;L(T) contains leaves and branch points for the DFS-tree T.&#34;&#34;&#34;
+    &#34;&#34;&#34;L(T) = {v | the first w in Adj[v] corresponds to a frond vw}.&#34;&#34;&#34;
+    node_set = set()
+    for v, adj in dfs_data[&#39;adj&#39;].items():
+        w = adj[0]
+        if is_frond(v, w, dfs_data):
+            node_set.add(v)
+    return list(node_set)
+
+
+def b(u, dfs_data):
+    &#34;&#34;&#34;The b(u) function used in the paper.&#34;&#34;&#34;
+    return dfs_data[&#39;b_u_lookup&#39;][u]
+
+
+def N(u, dfs_data):
+    &#34;&#34;&#34;The N(u) function used in the paper.&#34;&#34;&#34;
+    return dfs_data[&#39;N_u_lookup&#39;][u]
+
+
+def N_prime(u, dfs_data):
+    &#34;&#34;&#34;The N&#39;(u) function used in the paper.&#34;&#34;&#34;
+    return dfs_data[&#39;N_prime_u_lookup&#39;][u]
+
+
+def F(i, dfs_data):
+    &#34;&#34;&#34;The block of fronds in the frond graph.&#34;&#34;&#34;
+    return dfs_data[&#39;FG&#39;][i]
+
+
+def L(i, dfs_data):
+    &#34;&#34;&#34;The set of fronds on the left side of the frond graph.&#34;&#34;&#34;
+    return F(i, dfs_data)[0]
+
+
+def R(i, dfs_data):
+    &#34;&#34;&#34;The set of fronds on the right side of the frond graph.&#34;&#34;&#34;
+    return F(i, dfs_data)[1]
+
+
+def u(i, dfs_data):
+    &#34;&#34;&#34;The minimum vertex (DFS-number) in a frond contained in Li.&#34;&#34;&#34;
+    return L(i, dfs_data)[&#39;u&#39;]
+
+
+def v(i, dfs_data):
+    &#34;&#34;&#34;The maximum vertex (DFS-number) in a frond contained in Li.&#34;&#34;&#34;
+    return L(i, dfs_data)[&#39;v&#39;]
+
+
+def fn_x(i, dfs_data):
+    &#34;&#34;&#34;The minimum vertex (DFS-number) in a frond contained in Ri.&#34;&#34;&#34;
+    try:
+        return R(i, dfs_data)[&#39;x&#39;]
+    except Exception as e:
+        # Page 17 states that if Ri is empty, then we take xi to be n
+        return dfs_data[&#39;graph&#39;].num_nodes()
+
+
+def y(i, dfs_data):
+    &#34;&#34;&#34;The maximum vertex (DFS-number) in a frond contained in Ri.&#34;&#34;&#34;
+    try:
+        return R(i, dfs_data)[&#39;y&#39;]
+    except Exception as e:
+        # Page 17 states that if Ri is empty, then we take yi to be 0
+        return 0
+
+
+def lw(dfs_data):
+    &#34;&#34;&#34;The minimum frond endpoint that can be embedded on the left side of the current frond block.&#34;&#34;&#34;
+    l = dfs_data[&#39;FG&#39;][&#39;l&#39;]
+    return dfs_data[&#39;LF&#39;][l][0]
+
+
+def rw(dfs_data):
+    &#34;&#34;&#34;The minimum frond endpoint that can be embedded on the right side of the current frond block.&#34;&#34;&#34;
+    r = dfs_data[&#39;FG&#39;][&#39;r&#39;]
+    return dfs_data[&#39;RF&#39;][r][0]</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="pygraph.functions.planarity.kocay_algorithm.A"><code class="name flex">
+<span>def <span class="ident">A</span></span>(<span>u, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The adjacency function.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def A(u, dfs_data):
+    &#34;&#34;&#34;The adjacency function.&#34;&#34;&#34;
+    return dfs_data[&#39;adj&#39;][u]</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.B"><code class="name flex">
+<span>def <span class="ident">B</span></span>(<span>u, v, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The branch at u containing v is the set of all edges incident on v or any descendant of v, if a(v) == u.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def B(u, v, dfs_data):
+    &#34;&#34;&#34;The branch at u containing v is the set of all edges incident on v or any descendant of v, if a(v) == u.&#34;&#34;&#34;
+    &#34;&#34;&#34;Bu(v) = {wx | w is in S*(v)}&#34;&#34;&#34;
+    if a(v, dfs_data) != u:
+        return None
+
+    return list(set([edge_id for w in S_star(v, dfs_data) for edge_id in dfs_data[&#39;graph&#39;].get_node(w)[&#39;edges&#39;]]))</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.D"><code class="name flex">
+<span>def <span class="ident">D</span></span>(<span>u, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The DFS-numbering function.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def D(u, dfs_data):
+    &#34;&#34;&#34;The DFS-numbering function.&#34;&#34;&#34;
+    return dfs_data[&#39;ordering_lookup&#39;][u]</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.F"><code class="name flex">
+<span>def <span class="ident">F</span></span>(<span>i, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The block of fronds in the frond graph.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def F(i, dfs_data):
+    &#34;&#34;&#34;The block of fronds in the frond graph.&#34;&#34;&#34;
+    return dfs_data[&#39;FG&#39;][i]</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.L"><code class="name flex">
+<span>def <span class="ident">L</span></span>(<span>i, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The set of fronds on the left side of the frond graph.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def L(i, dfs_data):
+    &#34;&#34;&#34;The set of fronds on the left side of the frond graph.&#34;&#34;&#34;
+    return F(i, dfs_data)[0]</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.L1"><code class="name flex">
+<span>def <span class="ident">L1</span></span>(<span>v, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The L1 lowpoint of the node.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def L1(v, dfs_data):
+    &#34;&#34;&#34;The L1 lowpoint of the node.&#34;&#34;&#34;
+    return dfs_data[&#39;lowpoint_1_lookup&#39;][v]</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.L2"><code class="name flex">
+<span>def <span class="ident">L2</span></span>(<span>v, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The L2 lowpoint of the node.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def L2(v, dfs_data):
+    &#34;&#34;&#34;The L2 lowpoint of the node.&#34;&#34;&#34;
+    return dfs_data[&#39;lowpoint_2_lookup&#39;][v]</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.N"><code class="name flex">
+<span>def <span class="ident">N</span></span>(<span>u, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The N(u) function used in the paper.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def N(u, dfs_data):
+    &#34;&#34;&#34;The N(u) function used in the paper.&#34;&#34;&#34;
+    return dfs_data[&#39;N_u_lookup&#39;][u]</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.N_prime"><code class="name flex">
+<span>def <span class="ident">N_prime</span></span>(<span>u, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The N'(u) function used in the paper.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def N_prime(u, dfs_data):
+    &#34;&#34;&#34;The N&#39;(u) function used in the paper.&#34;&#34;&#34;
+    return dfs_data[&#39;N_prime_u_lookup&#39;][u]</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.R"><code class="name flex">
+<span>def <span class="ident">R</span></span>(<span>i, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The set of fronds on the right side of the frond graph.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def R(i, dfs_data):
+    &#34;&#34;&#34;The set of fronds on the right side of the frond graph.&#34;&#34;&#34;
+    return F(i, dfs_data)[1]</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.S"><code class="name flex">
+<span>def <span class="ident">S</span></span>(<span>u, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The set of all descendants of u.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def S(u, dfs_data):
+    &#34;&#34;&#34;The set of all descendants of u.&#34;&#34;&#34;
+    return __get_descendants(u, dfs_data)</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.S_star"><code class="name flex">
+<span>def <span class="ident">S_star</span></span>(<span>u, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The set of all descendants of u, with u added.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def S_star(u, dfs_data):
+    &#34;&#34;&#34;The set of all descendants of u, with u added.&#34;&#34;&#34;
+    s_u = S(u, dfs_data)
+    if u not in s_u:
+        s_u.append(u)
+    return s_u</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.T"><code class="name flex">
+<span>def <span class="ident">T</span></span>(<span>u, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>T(u) consists of all vertices adjacent to u or any descendant of u.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def T(u, dfs_data):
+    &#34;&#34;&#34;T(u) consists of all vertices adjacent to u or any descendant of u.&#34;&#34;&#34;
+    return list(set([w for v in S_star(u, dfs_data) for w in A(v, dfs_data)]))</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.a"><code class="name flex">
+<span>def <span class="ident">a</span></span>(<span>v, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The ancestor function.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def a(v, dfs_data):
+    &#34;&#34;&#34;The ancestor function.&#34;&#34;&#34;
+    return dfs_data[&#39;parent_lookup&#39;][v]</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.b"><code class="name flex">
+<span>def <span class="ident">b</span></span>(<span>u, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The b(u) function used in the paper.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def b(u, dfs_data):
+    &#34;&#34;&#34;The b(u) function used in the paper.&#34;&#34;&#34;
+    return dfs_data[&#39;b_u_lookup&#39;][u]</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.fn_x"><code class="name flex">
+<span>def <span class="ident">fn_x</span></span>(<span>i, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The minimum vertex (DFS-number) in a frond contained in Ri.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fn_x(i, dfs_data):
+    &#34;&#34;&#34;The minimum vertex (DFS-number) in a frond contained in Ri.&#34;&#34;&#34;
+    try:
+        return R(i, dfs_data)[&#39;x&#39;]
+    except Exception as e:
+        # Page 17 states that if Ri is empty, then we take xi to be n
+        return dfs_data[&#39;graph&#39;].num_nodes()</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.is_frond"><code class="name flex">
+<span>def <span class="ident">is_frond</span></span>(<span>u, v, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Determines if the edge uv is a frond ("backedge").</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_frond(u, v, dfs_data):
+    &#34;&#34;&#34;Determines if the edge uv is a frond (&#34;backedge&#34;).&#34;&#34;&#34;
+    d_u = D(u, dfs_data)
+    d_v = D(v, dfs_data)
+    edge_id = dfs_data[&#39;graph&#39;].get_first_edge_id_by_node_ids(u, v)
+    return True if dfs_data[&#39;edge_lookup&#39;][edge_id] == &#39;backedge&#39; and d_v &lt; d_u else False</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.is_leaf"><code class="name flex">
+<span>def <span class="ident">is_leaf</span></span>(<span>v, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Determines if v is a leaf (has no descendants).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_leaf(v, dfs_data):
+    &#34;&#34;&#34;Determines if v is a leaf (has no descendants).&#34;&#34;&#34;
+    return True if S(v, dfs_data) else False</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.is_type_II_branch"><code class="name flex">
+<span>def <span class="ident">is_type_II_branch</span></span>(<span>u, v, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Determines whether a branch uv is a type II branch.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_type_II_branch(u, v, dfs_data):
+    &#34;&#34;&#34;Determines whether a branch uv is a type II branch.&#34;&#34;&#34;
+    if u != a(v, dfs_data):
+        return False
+    if u &lt; L2(v, dfs_data):
+        return True
+    return False</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.is_type_I_branch"><code class="name flex">
+<span>def <span class="ident">is_type_I_branch</span></span>(<span>u, v, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Determines whether a branch uv is a type I branch.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def is_type_I_branch(u, v, dfs_data):
+    &#34;&#34;&#34;Determines whether a branch uv is a type I branch.&#34;&#34;&#34;
+    if u != a(v, dfs_data):
+        return False
+    if u == L2(v, dfs_data):
+        return True
+    return False</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.kocay_planarity_test"><code class="name flex">
+<span>def <span class="ident">kocay_planarity_test</span></span>(<span>graph)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Determines whether a graph is planar.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def kocay_planarity_test(graph):
+    &#34;&#34;&#34;Determines whether a graph is planar.&#34;&#34;&#34;
+
+    # We first have to calculate the DFS-tree of the graph, so we can calculate the edge weights to determine
+    # the order of embedding of the branches
+    adj = __calculate_adjacency_lists(graph)
+    dfs_data = __setup_dfs_data(graph, adj)
+
+    # Now that we have enough information to sort the edges, we should do so and then recalculate the DFS tree
+    adj = __sort_adjacency_lists(dfs_data)
+    dfs_data = __setup_dfs_data(graph, adj)
+
+    # We now have the information we need to calculate the branch points
+    __branch_point_dfs(dfs_data)
+    #b_u_lookup =__calculate_bu_dfs(dfs_data)
+    #dfs_data[&#39;b_u_lookup&#39;] = b_u_lookup
+
+    # Now that everything is calculated and ordered, we can attempt to embed the graph
+    is_planar = __embed_branch(dfs_data)
+
+    return is_planar</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.lw"><code class="name flex">
+<span>def <span class="ident">lw</span></span>(<span>dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The minimum frond endpoint that can be embedded on the left side of the current frond block.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def lw(dfs_data):
+    &#34;&#34;&#34;The minimum frond endpoint that can be embedded on the left side of the current frond block.&#34;&#34;&#34;
+    l = dfs_data[&#39;FG&#39;][&#39;l&#39;]
+    return dfs_data[&#39;LF&#39;][l][0]</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.merge_Fm"><code class="name flex">
+<span>def <span class="ident">merge_Fm</span></span>(<span>dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Merges Fm-1 and Fm, as defined on page 19 of the paper.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def merge_Fm(dfs_data):
+    &#34;&#34;&#34;Merges Fm-1 and Fm, as defined on page 19 of the paper.&#34;&#34;&#34;
+    FG = dfs_data[&#39;FG&#39;]
+    m = FG[&#39;m&#39;]
+    FGm = FG[m]
+    FGm1 = FG[m-1]
+
+    if FGm[0][&#39;u&#39;] &lt; FGm1[0][&#39;u&#39;]:
+        FGm1[0][&#39;u&#39;] = FGm[0][&#39;u&#39;]
+
+    if FGm[0][&#39;v&#39;] &gt; FGm1[0][&#39;v&#39;]:
+        FGm1[0][&#39;v&#39;] = FGm[0][&#39;v&#39;]
+
+    if FGm[1][&#39;x&#39;] &lt; FGm1[1][&#39;x&#39;]:
+        FGm1[1][&#39;x&#39;] = FGm[1][&#39;x&#39;]
+
+    if FGm[1][&#39;y&#39;] &gt; FGm1[1][&#39;y&#39;]:
+        FGm1[1][&#39;y&#39;] = FGm[1][&#39;y&#39;]
+
+    del FG[m]
+    FG[&#39;m&#39;] -= 1</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.rw"><code class="name flex">
+<span>def <span class="ident">rw</span></span>(<span>dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The minimum frond endpoint that can be embedded on the right side of the current frond block.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def rw(dfs_data):
+    &#34;&#34;&#34;The minimum frond endpoint that can be embedded on the right side of the current frond block.&#34;&#34;&#34;
+    r = dfs_data[&#39;FG&#39;][&#39;r&#39;]
+    return dfs_data[&#39;RF&#39;][r][0]</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.stem"><code class="name flex">
+<span>def <span class="ident">stem</span></span>(<span>u, v, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The stem of Bu(v) is the edge uv in Bu(v).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def stem(u, v, dfs_data):
+    &#34;&#34;&#34;The stem of Bu(v) is the edge uv in Bu(v).&#34;&#34;&#34;
+    #return dfs_data[&#39;graph&#39;].get_first_edge_id_by_node_ids(u, v)
+    uv_edges = dfs_data[&#39;graph&#39;].get_edge_ids_by_node_ids(u, v)
+    buv_edges = B(u, v, dfs_data)
+    for edge_id in uv_edges:
+        if edge_id in buv_edges:
+            return edge_id
+    return None # We should never, ever get here</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.switch_sides"><code class="name flex">
+<span>def <span class="ident">switch_sides</span></span>(<span>d_u, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Switches Lm and Rm, as defined on page 20 of the paper.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def switch_sides(d_u, dfs_data):
+    &#34;&#34;&#34;Switches Lm and Rm, as defined on page 20 of the paper.&#34;&#34;&#34;
+    # global fn_x
+
+    m = dfs_data[&#39;FG&#39;][&#39;m&#39;]
+    u_m = u(m, dfs_data)
+    # x_m = fn_x(m, dfs_data)
+
+    if d_u &lt;= u_m:
+        l_w = lw(dfs_data)
+        u_m1 = u(m-1, dfs_data)
+        while u_m1 &gt; l_w:
+            merge_Fm(dfs_data)
+            m = dfs_data[&#39;FG&#39;][&#39;m&#39;]
+            u_m1 = u(m-1, dfs_data)
+
+        # l_w = r_w is handled dynamically by the switching of fronds below
+
+        # l = r
+        dfs_data[&#39;FG&#39;][&#39;l&#39;] = dfs_data[&#39;FG&#39;][&#39;r&#39;]
+
+        # adjust r so that gr is first frond preceding xm in RF
+        x_m = fn_x(m, dfs_data)
+        r = len(dfs_data[&#39;RF&#39;]) - 1
+        g_r = dfs_data[&#39;RF&#39;][r][0]
+        while g_r &gt;= x_m:
+            r -= 1
+            if r &lt; 0:
+                r = 0
+                break
+            g_r = dfs_data[&#39;RF&#39;][r][0]
+        dfs_data[&#39;FG&#39;][&#39;r&#39;] = r
+
+        # changing r_w is also handled dynamically by the frond switching
+    else:
+        r_w = rw(dfs_data)
+        x_m1 = fn_x(m-1, dfs_data)
+        while x_m1 &gt; r_w:
+            merge_Fm(dfs_data)
+            m = dfs_data[&#39;FG&#39;][&#39;m&#39;]
+            x_m1 = fn_x(m-1, dfs_data)
+
+        # r_w = l_w is handled dynamically by the switching of fronds below
+
+        # r = l
+        dfs_data[&#39;FG&#39;][&#39;r&#39;] = dfs_data[&#39;FG&#39;][&#39;l&#39;]
+
+        # adjust l so that fl is first frond preceding um in LF
+        u_m = u(m, dfs_data)
+        l = len(dfs_data[&#39;LF&#39;]) - 1
+        f_l = dfs_data[&#39;LF&#39;][l][0]
+        while f_l &gt;= u_m:
+            l -= 1
+            f_l = dfs_data[&#39;LF&#39;][l][0]
+        dfs_data[&#39;FG&#39;][&#39;l&#39;] = l
+
+        # changing l_w is also handled dynamically by the frond switching
+
+    m = dfs_data[&#39;FG&#39;][&#39;m&#39;]
+
+    # Exchange the portion of the linked list LF between um and vm with the portion of RF between xm and ym
+    LF = dfs_data[&#39;LF&#39;]
+    RF = dfs_data[&#39;RF&#39;]
+
+    u_m = u(m, dfs_data)
+    v_m = v(m, dfs_data)
+    x_m = fn_x(m, dfs_data)
+    y_m = y(m, dfs_data)
+
+    # --These are the baseline indexes, they should be narrowed appropriately
+    first_left_index = 1
+    last_left_index = len(LF) - 1
+    first_right_index = 1
+    last_right_index = len(RF) - 1
+
+    # --Narrow the left indexes
+    while first_left_index &lt; last_left_index:
+        frond = LF[first_left_index]
+        if u_m &gt;= frond[0]:
+            first_left_index -= 1
+            break
+        else:
+            first_left_index += 1
+
+    while first_left_index &lt; last_left_index:
+        frond = LF[last_left_index]
+        if v_m &lt; frond[1]:
+            last_left_index -= 1
+        else:
+            last_left_index += 1
+            break
+
+    # --Narrow the right indexes
+    while first_right_index &lt; last_right_index:
+        frond = RF[first_right_index]
+        if x_m &gt;= frond[0]:
+            first_right_index -= 1
+            break
+        else:
+            first_right_index += 1
+
+    while first_right_index &lt; last_right_index:
+        frond = RF[last_right_index]
+        if y_m &lt; frond[1]:
+            last_right_index -= 1
+        else:
+            last_right_index += 1
+            break
+
+
+    # --Grab the appropriate list slices from each list
+    LF_slice = LF[first_left_index:last_left_index+1]
+    RF_slice = RF[first_right_index:last_right_index+1]
+
+    # --Remove the slices from each list
+    del LF[first_left_index:last_left_index+1]
+    del RF[first_right_index:last_right_index+1]
+
+    # --Add the slice from the right list to the left list
+    i = first_left_index
+    for x in RF_slice:
+        LF.insert(i, x)
+        i += 1
+
+    # --Add the slice from the left list to the right list
+    i = first_right_index
+    for x in LF_slice:
+        RF.insert(i, x)
+        i += 1
+
+    # Descriptive Note: We can just switch the slices directly because we know that if there were any conflicts from
+    # the switch, those fronds would also have been included in the switch.
+
+    # Exchange um and xm , vm and ym , Lm and Rm
+    # --Only Lm and Rm need to be exchanged, since um, xm, vm, and ym are all dynamically calculated
+    old_rm = dfs_data[&#39;FG&#39;][m][1]
+    old_lm = dfs_data[&#39;FG&#39;][m][0]
+
+    # --We have to convert the Lm and Rm dicts to use the correct keys
+    converted_rm = __convert_RF_dict_to_LF(old_rm)
+    converted_lm = __convert_LF_dict_to_RF(old_lm)
+
+    dfs_data[&#39;FG&#39;][m][1] = converted_lm
+    dfs_data[&#39;FG&#39;][m][0] = converted_rm
+
+    merge_Fm(dfs_data)</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.u"><code class="name flex">
+<span>def <span class="ident">u</span></span>(<span>i, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The minimum vertex (DFS-number) in a frond contained in Li.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def u(i, dfs_data):
+    &#34;&#34;&#34;The minimum vertex (DFS-number) in a frond contained in Li.&#34;&#34;&#34;
+    return L(i, dfs_data)[&#39;u&#39;]</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.v"><code class="name flex">
+<span>def <span class="ident">v</span></span>(<span>i, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The maximum vertex (DFS-number) in a frond contained in Li.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def v(i, dfs_data):
+    &#34;&#34;&#34;The maximum vertex (DFS-number) in a frond contained in Li.&#34;&#34;&#34;
+    return L(i, dfs_data)[&#39;v&#39;]</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.wt"><code class="name flex">
+<span>def <span class="ident">wt</span></span>(<span>u, v, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The wt_u[v] function used in the paper.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def wt(u, v, dfs_data):
+    &#34;&#34;&#34;The wt_u[v] function used in the paper.&#34;&#34;&#34;
+    # Determine the edge_id
+    edge_id = dfs_data[&#39;graph&#39;].get_first_edge_id_by_node_ids(u, v)
+    # Pull the weight of that edge
+    return dfs_data[&#39;edge_weights&#39;][edge_id]</code></pre>
+</details>
+</dd>
+<dt id="pygraph.functions.planarity.kocay_algorithm.y"><code class="name flex">
+<span>def <span class="ident">y</span></span>(<span>i, dfs_data)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The maximum vertex (DFS-number) in a frond contained in Ri.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def y(i, dfs_data):
+    &#34;&#34;&#34;The maximum vertex (DFS-number) in a frond contained in Ri.&#34;&#34;&#34;
+    try:
+        return R(i, dfs_data)[&#39;y&#39;]
+    except Exception as e:
+        # Page 17 states that if Ri is empty, then we take yi to be 0
+        return 0</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="pygraph.functions.planarity" href="index.html">pygraph.functions.planarity</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.A" href="#pygraph.functions.planarity.kocay_algorithm.A">A</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.B" href="#pygraph.functions.planarity.kocay_algorithm.B">B</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.D" href="#pygraph.functions.planarity.kocay_algorithm.D">D</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.F" href="#pygraph.functions.planarity.kocay_algorithm.F">F</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.L" href="#pygraph.functions.planarity.kocay_algorithm.L">L</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.L1" href="#pygraph.functions.planarity.kocay_algorithm.L1">L1</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.L2" href="#pygraph.functions.planarity.kocay_algorithm.L2">L2</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.N" href="#pygraph.functions.planarity.kocay_algorithm.N">N</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.N_prime" href="#pygraph.functions.planarity.kocay_algorithm.N_prime">N_prime</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.R" href="#pygraph.functions.planarity.kocay_algorithm.R">R</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.S" href="#pygraph.functions.planarity.kocay_algorithm.S">S</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.S_star" href="#pygraph.functions.planarity.kocay_algorithm.S_star">S_star</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.T" href="#pygraph.functions.planarity.kocay_algorithm.T">T</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.a" href="#pygraph.functions.planarity.kocay_algorithm.a">a</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.b" href="#pygraph.functions.planarity.kocay_algorithm.b">b</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.fn_x" href="#pygraph.functions.planarity.kocay_algorithm.fn_x">fn_x</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.is_frond" href="#pygraph.functions.planarity.kocay_algorithm.is_frond">is_frond</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.is_leaf" href="#pygraph.functions.planarity.kocay_algorithm.is_leaf">is_leaf</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.is_type_II_branch" href="#pygraph.functions.planarity.kocay_algorithm.is_type_II_branch">is_type_II_branch</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.is_type_I_branch" href="#pygraph.functions.planarity.kocay_algorithm.is_type_I_branch">is_type_I_branch</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.kocay_planarity_test" href="#pygraph.functions.planarity.kocay_algorithm.kocay_planarity_test">kocay_planarity_test</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.lw" href="#pygraph.functions.planarity.kocay_algorithm.lw">lw</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.merge_Fm" href="#pygraph.functions.planarity.kocay_algorithm.merge_Fm">merge_Fm</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.rw" href="#pygraph.functions.planarity.kocay_algorithm.rw">rw</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.stem" href="#pygraph.functions.planarity.kocay_algorithm.stem">stem</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.switch_sides" href="#pygraph.functions.planarity.kocay_algorithm.switch_sides">switch_sides</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.u" href="#pygraph.functions.planarity.kocay_algorithm.u">u</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.v" href="#pygraph.functions.planarity.kocay_algorithm.v">v</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.wt" href="#pygraph.functions.planarity.kocay_algorithm.wt">wt</a></code></li>
+<li><code><a title="pygraph.functions.planarity.kocay_algorithm.y" href="#pygraph.functions.planarity.kocay_algorithm.y">y</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

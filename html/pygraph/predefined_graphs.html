@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>pygraph.predefined_graphs API documentation</title>
+<meta name="description" content="Provides factory methods for building well-known, predefined graphs." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>pygraph.predefined_graphs</code></h1>
+</header>
+<section id="section-intro">
+<p>Provides factory methods for building well-known, predefined graphs.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;Provides factory methods for building well-known, predefined graphs.&#34;&#34;&#34;
+
+from .classes import UndirectedGraph
+from .helpers import create_graph_from_adjacency_matrix
+
+def build_cycle_graph(num_nodes):
+    &#34;&#34;&#34;Builds a cycle graph with the specified number of nodes.
+       Ref: http://mathworld.wolfram.com/CycleGraph.html&#34;&#34;&#34;
+    graph = UndirectedGraph()
+
+    if num_nodes &gt; 0:
+        first_node = graph.new_node()
+        if num_nodes &gt; 1:
+            previous_node = first_node
+            for _ in xrange(num_nodes - 1):
+                new_node = graph.new_node()
+                graph.new_edge(previous_node, new_node)
+                previous_node = new_node
+            graph.new_edge(previous_node, first_node)
+
+    return graph
+
+
+def build_wheel_graph(num_nodes):
+    &#34;&#34;&#34;Builds a wheel graph with the specified number of nodes.
+       Ref: http://mathworld.wolfram.com/WheelGraph.html&#34;&#34;&#34;
+    # The easiest way to build a wheel graph is to build
+    # C_n-1 and then add a hub node and spoke edges
+    graph = build_cycle_graph(num_nodes - 1)
+
+    cycle_graph_vertices = graph.get_all_node_ids()
+
+    node_id = graph.new_node()
+    for cycle_node in cycle_graph_vertices:
+        graph.new_edge(node_id, cycle_node)
+
+    return graph
+
+def build_triangle_graph():
+    &#34;&#34;&#34;Builds a triangle graph, C3.
+       Ref: http://mathworld.wolfram.com/CycleGraph.html&#34;&#34;&#34;
+    graph = build_cycle_graph(3)
+
+    return graph
+
+
+def build_square_graph():
+    &#34;&#34;&#34;Builds a square graph, C4.
+       Ref: http://mathworld.wolfram.com/CycleGraph.html&#34;&#34;&#34;
+    graph = build_cycle_graph(4)
+
+    return graph
+
+
+def build_diamond_graph():
+    &#34;&#34;&#34;Builds a diamond graph.
+       Ref: http://mathworld.wolfram.com/DiamondGraph.html&#34;&#34;&#34;
+    graph = build_square_graph()
+
+    graph.new_edge(2, 4)
+
+    return graph
+
+
+def build_tetrahedral_graph():
+    &#34;&#34;&#34;Builds a tetrahedral graph, K4 (also, W4).
+       Ref: http://mathworld.wolfram.com/TetrahedralGraph.html&#34;&#34;&#34;
+    graph = build_wheel_graph(4)
+
+    return graph
+
+
+def build_5_cycle_graph():
+    &#34;&#34;&#34;Builds a 5-cycle graph, C5.
+       Ref: http://mathworld.wolfram.com/CycleGraph.html&#34;&#34;&#34;
+    graph = build_cycle_graph(5)
+
+    return graph
+
+
+def build_gem_graph():
+    &#34;&#34;&#34;Builds a gem graph, F4,1.
+       Ref: http://mathworld.wolfram.com/GemGraph.html&#34;&#34;&#34;
+    graph = build_5_cycle_graph()
+
+    graph.new_edge(1, 3)
+    graph.new_edge(1, 4)
+
+    return graph
+
+
+def build_k5_graph():
+    &#34;&#34;&#34;Makes a new K5 graph.
+       Ref: http://mathworld.wolfram.com/Pentatope.html&#34;&#34;&#34;
+    graph = UndirectedGraph()
+
+    # K5 has 5 nodes
+    for _ in xrange(5):
+        graph.new_node()
+
+    # K5 has 10 edges
+    # --Edge: a
+    graph.new_edge(1, 2)
+    # --Edge: b
+    graph.new_edge(2, 3)
+    # --Edge: c
+    graph.new_edge(3, 4)
+    # --Edge: d
+    graph.new_edge(4, 5)
+    # --Edge: e
+    graph.new_edge(5, 1)
+    # --Edge: f
+    graph.new_edge(1, 3)
+    # --Edge: g
+    graph.new_edge(1, 4)
+    # --Edge: h
+    graph.new_edge(2, 4)
+    # --Edge: i
+    graph.new_edge(2, 5)
+    # --Edge: j
+    graph.new_edge(3, 5)
+
+    return graph
+
+
+def build_k33_graph():
+    &#34;&#34;&#34;Makes a new K3,3 graph.
+       Ref: http://mathworld.wolfram.com/UtilityGraph.html&#34;&#34;&#34;
+    graph = UndirectedGraph()
+
+    # K3,3 has 6 nodes
+    for _ in xrange(1, 7):
+        graph.new_node()
+
+    # K3,3 has 9 edges
+    # --Edge: a
+    graph.new_edge(1, 4)
+    # --Edge: b
+    graph.new_edge(1, 5)
+    # --Edge: c
+    graph.new_edge(1, 6)
+    # --Edge: d
+    graph.new_edge(2, 4)
+    # --Edge: e
+    graph.new_edge(2, 5)
+    # --Edge: f
+    graph.new_edge(2, 6)
+    # --Edge: g
+    graph.new_edge(3, 4)
+    # --Edge: h
+    graph.new_edge(3, 5)
+    # --Edge: i
+    graph.new_edge(3, 6)
+
+    return graph
+
+def build_groetzch_graph():
+    &#34;&#34;&#34;Makes a new Groetzsch graph.
+       Ref: http://mathworld.wolfram.com/GroetzschGraph.html&#34;&#34;&#34;
+    # Because the graph is so complicated, we want to
+    # build it via adjacency matrix specification
+    
+    # -- Initialize the matrix to all zeros
+    adj = [[0 for _ in xrange(11)] for _ in xrange(11)]
+
+    # -- Add individual edge connections
+    row_connections = []
+
+    row_connections.append( (1,2,7,10) )
+    row_connections.append( (0,3,6,9) )
+    row_connections.append( (0,4,6,8) )
+    row_connections.append( (1,4,8,10) )
+    row_connections.append( (2,3,7,9) )
+    row_connections.append( (6,7,8,9,10) )
+    row_connections.append( (1,2,5) )
+    row_connections.append( (0,4,5) )
+    row_connections.append( (2,3,5) )
+    row_connections.append( (1,4,5) )
+    row_connections.append( (0,3,5) )
+
+    for j, tpl in enumerate(row_connections):
+        for i in tpl:
+            adj[j][i] = 1
+            adj[i][j] = 1
+    
+    # Debug print the adjacency matrix
+    #for row in adj:
+    #    print row
+
+    graph, _ = create_graph_from_adjacency_matrix(adj)
+
+    return graph
+
+
+def build_franklin_graph():
+    &#34;&#34;&#34;Makes a new Franklin graph.
+       Ref: http://mathworld.wolfram.com/FranklinGraph.html&#34;&#34;&#34;
+    # The easiest way to build the Franklin graph is to start
+    # with C12 and add the additional 6 edges
+    graph = build_cycle_graph(12)
+
+    edge_tpls = [
+        (1,8),
+        (2,7),
+        (3,10),
+        (4,9),
+        (5,12),
+        (6,11)
+    ]
+
+    for i, j in edge_tpls:
+        graph.new_edge(i, j)
+
+    return graph
+
+
+def build_chvatal_graph():
+    &#34;&#34;&#34;Makes a new Chvatal graph.
+       Ref: http://mathworld.wolfram.com/ChvatalGraph.html&#34;&#34;&#34;
+    # The easiest way to build the Chvatal graph is to start
+    # with C12 and add the additional 12 edges
+    graph = build_cycle_graph(12)
+
+    edge_tpls = [
+        (1,7), (1,9), (2,5), (2,11),
+        (3,7), (3,9), (4,10), (4,12),
+        (5,8), (6,10), (6,12), (8,11),
+    ]
+
+    for i, j in edge_tpls:
+        graph.new_edge(i, j)
+
+    return graph</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="pygraph.predefined_graphs.build_5_cycle_graph"><code class="name flex">
+<span>def <span class="ident">build_5_cycle_graph</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Builds a 5-cycle graph, C5.
+Ref: <a href="http://mathworld.wolfram.com/CycleGraph.html">http://mathworld.wolfram.com/CycleGraph.html</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def build_5_cycle_graph():
+    &#34;&#34;&#34;Builds a 5-cycle graph, C5.
+       Ref: http://mathworld.wolfram.com/CycleGraph.html&#34;&#34;&#34;
+    graph = build_cycle_graph(5)
+
+    return graph</code></pre>
+</details>
+</dd>
+<dt id="pygraph.predefined_graphs.build_chvatal_graph"><code class="name flex">
+<span>def <span class="ident">build_chvatal_graph</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Makes a new Chvatal graph.
+Ref: <a href="http://mathworld.wolfram.com/ChvatalGraph.html">http://mathworld.wolfram.com/ChvatalGraph.html</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def build_chvatal_graph():
+    &#34;&#34;&#34;Makes a new Chvatal graph.
+       Ref: http://mathworld.wolfram.com/ChvatalGraph.html&#34;&#34;&#34;
+    # The easiest way to build the Chvatal graph is to start
+    # with C12 and add the additional 12 edges
+    graph = build_cycle_graph(12)
+
+    edge_tpls = [
+        (1,7), (1,9), (2,5), (2,11),
+        (3,7), (3,9), (4,10), (4,12),
+        (5,8), (6,10), (6,12), (8,11),
+    ]
+
+    for i, j in edge_tpls:
+        graph.new_edge(i, j)
+
+    return graph</code></pre>
+</details>
+</dd>
+<dt id="pygraph.predefined_graphs.build_cycle_graph"><code class="name flex">
+<span>def <span class="ident">build_cycle_graph</span></span>(<span>num_nodes)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Builds a cycle graph with the specified number of nodes.
+Ref: <a href="http://mathworld.wolfram.com/CycleGraph.html">http://mathworld.wolfram.com/CycleGraph.html</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def build_cycle_graph(num_nodes):
+    &#34;&#34;&#34;Builds a cycle graph with the specified number of nodes.
+       Ref: http://mathworld.wolfram.com/CycleGraph.html&#34;&#34;&#34;
+    graph = UndirectedGraph()
+
+    if num_nodes &gt; 0:
+        first_node = graph.new_node()
+        if num_nodes &gt; 1:
+            previous_node = first_node
+            for _ in xrange(num_nodes - 1):
+                new_node = graph.new_node()
+                graph.new_edge(previous_node, new_node)
+                previous_node = new_node
+            graph.new_edge(previous_node, first_node)
+
+    return graph</code></pre>
+</details>
+</dd>
+<dt id="pygraph.predefined_graphs.build_diamond_graph"><code class="name flex">
+<span>def <span class="ident">build_diamond_graph</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Builds a diamond graph.
+Ref: <a href="http://mathworld.wolfram.com/DiamondGraph.html">http://mathworld.wolfram.com/DiamondGraph.html</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def build_diamond_graph():
+    &#34;&#34;&#34;Builds a diamond graph.
+       Ref: http://mathworld.wolfram.com/DiamondGraph.html&#34;&#34;&#34;
+    graph = build_square_graph()
+
+    graph.new_edge(2, 4)
+
+    return graph</code></pre>
+</details>
+</dd>
+<dt id="pygraph.predefined_graphs.build_franklin_graph"><code class="name flex">
+<span>def <span class="ident">build_franklin_graph</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Makes a new Franklin graph.
+Ref: <a href="http://mathworld.wolfram.com/FranklinGraph.html">http://mathworld.wolfram.com/FranklinGraph.html</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def build_franklin_graph():
+    &#34;&#34;&#34;Makes a new Franklin graph.
+       Ref: http://mathworld.wolfram.com/FranklinGraph.html&#34;&#34;&#34;
+    # The easiest way to build the Franklin graph is to start
+    # with C12 and add the additional 6 edges
+    graph = build_cycle_graph(12)
+
+    edge_tpls = [
+        (1,8),
+        (2,7),
+        (3,10),
+        (4,9),
+        (5,12),
+        (6,11)
+    ]
+
+    for i, j in edge_tpls:
+        graph.new_edge(i, j)
+
+    return graph</code></pre>
+</details>
+</dd>
+<dt id="pygraph.predefined_graphs.build_gem_graph"><code class="name flex">
+<span>def <span class="ident">build_gem_graph</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Builds a gem graph, F4,1.
+Ref: <a href="http://mathworld.wolfram.com/GemGraph.html">http://mathworld.wolfram.com/GemGraph.html</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def build_gem_graph():
+    &#34;&#34;&#34;Builds a gem graph, F4,1.
+       Ref: http://mathworld.wolfram.com/GemGraph.html&#34;&#34;&#34;
+    graph = build_5_cycle_graph()
+
+    graph.new_edge(1, 3)
+    graph.new_edge(1, 4)
+
+    return graph</code></pre>
+</details>
+</dd>
+<dt id="pygraph.predefined_graphs.build_groetzch_graph"><code class="name flex">
+<span>def <span class="ident">build_groetzch_graph</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Makes a new Groetzsch graph.
+Ref: <a href="http://mathworld.wolfram.com/GroetzschGraph.html">http://mathworld.wolfram.com/GroetzschGraph.html</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def build_groetzch_graph():
+    &#34;&#34;&#34;Makes a new Groetzsch graph.
+       Ref: http://mathworld.wolfram.com/GroetzschGraph.html&#34;&#34;&#34;
+    # Because the graph is so complicated, we want to
+    # build it via adjacency matrix specification
+    
+    # -- Initialize the matrix to all zeros
+    adj = [[0 for _ in xrange(11)] for _ in xrange(11)]
+
+    # -- Add individual edge connections
+    row_connections = []
+
+    row_connections.append( (1,2,7,10) )
+    row_connections.append( (0,3,6,9) )
+    row_connections.append( (0,4,6,8) )
+    row_connections.append( (1,4,8,10) )
+    row_connections.append( (2,3,7,9) )
+    row_connections.append( (6,7,8,9,10) )
+    row_connections.append( (1,2,5) )
+    row_connections.append( (0,4,5) )
+    row_connections.append( (2,3,5) )
+    row_connections.append( (1,4,5) )
+    row_connections.append( (0,3,5) )
+
+    for j, tpl in enumerate(row_connections):
+        for i in tpl:
+            adj[j][i] = 1
+            adj[i][j] = 1
+    
+    # Debug print the adjacency matrix
+    #for row in adj:
+    #    print row
+
+    graph, _ = create_graph_from_adjacency_matrix(adj)
+
+    return graph</code></pre>
+</details>
+</dd>
+<dt id="pygraph.predefined_graphs.build_k33_graph"><code class="name flex">
+<span>def <span class="ident">build_k33_graph</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Makes a new K3,3 graph.
+Ref: <a href="http://mathworld.wolfram.com/UtilityGraph.html">http://mathworld.wolfram.com/UtilityGraph.html</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def build_k33_graph():
+    &#34;&#34;&#34;Makes a new K3,3 graph.
+       Ref: http://mathworld.wolfram.com/UtilityGraph.html&#34;&#34;&#34;
+    graph = UndirectedGraph()
+
+    # K3,3 has 6 nodes
+    for _ in xrange(1, 7):
+        graph.new_node()
+
+    # K3,3 has 9 edges
+    # --Edge: a
+    graph.new_edge(1, 4)
+    # --Edge: b
+    graph.new_edge(1, 5)
+    # --Edge: c
+    graph.new_edge(1, 6)
+    # --Edge: d
+    graph.new_edge(2, 4)
+    # --Edge: e
+    graph.new_edge(2, 5)
+    # --Edge: f
+    graph.new_edge(2, 6)
+    # --Edge: g
+    graph.new_edge(3, 4)
+    # --Edge: h
+    graph.new_edge(3, 5)
+    # --Edge: i
+    graph.new_edge(3, 6)
+
+    return graph</code></pre>
+</details>
+</dd>
+<dt id="pygraph.predefined_graphs.build_k5_graph"><code class="name flex">
+<span>def <span class="ident">build_k5_graph</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Makes a new K5 graph.
+Ref: <a href="http://mathworld.wolfram.com/Pentatope.html">http://mathworld.wolfram.com/Pentatope.html</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def build_k5_graph():
+    &#34;&#34;&#34;Makes a new K5 graph.
+       Ref: http://mathworld.wolfram.com/Pentatope.html&#34;&#34;&#34;
+    graph = UndirectedGraph()
+
+    # K5 has 5 nodes
+    for _ in xrange(5):
+        graph.new_node()
+
+    # K5 has 10 edges
+    # --Edge: a
+    graph.new_edge(1, 2)
+    # --Edge: b
+    graph.new_edge(2, 3)
+    # --Edge: c
+    graph.new_edge(3, 4)
+    # --Edge: d
+    graph.new_edge(4, 5)
+    # --Edge: e
+    graph.new_edge(5, 1)
+    # --Edge: f
+    graph.new_edge(1, 3)
+    # --Edge: g
+    graph.new_edge(1, 4)
+    # --Edge: h
+    graph.new_edge(2, 4)
+    # --Edge: i
+    graph.new_edge(2, 5)
+    # --Edge: j
+    graph.new_edge(3, 5)
+
+    return graph</code></pre>
+</details>
+</dd>
+<dt id="pygraph.predefined_graphs.build_square_graph"><code class="name flex">
+<span>def <span class="ident">build_square_graph</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Builds a square graph, C4.
+Ref: <a href="http://mathworld.wolfram.com/CycleGraph.html">http://mathworld.wolfram.com/CycleGraph.html</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def build_square_graph():
+    &#34;&#34;&#34;Builds a square graph, C4.
+       Ref: http://mathworld.wolfram.com/CycleGraph.html&#34;&#34;&#34;
+    graph = build_cycle_graph(4)
+
+    return graph</code></pre>
+</details>
+</dd>
+<dt id="pygraph.predefined_graphs.build_tetrahedral_graph"><code class="name flex">
+<span>def <span class="ident">build_tetrahedral_graph</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Builds a tetrahedral graph, K4 (also, W4).
+Ref: <a href="http://mathworld.wolfram.com/TetrahedralGraph.html">http://mathworld.wolfram.com/TetrahedralGraph.html</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def build_tetrahedral_graph():
+    &#34;&#34;&#34;Builds a tetrahedral graph, K4 (also, W4).
+       Ref: http://mathworld.wolfram.com/TetrahedralGraph.html&#34;&#34;&#34;
+    graph = build_wheel_graph(4)
+
+    return graph</code></pre>
+</details>
+</dd>
+<dt id="pygraph.predefined_graphs.build_triangle_graph"><code class="name flex">
+<span>def <span class="ident">build_triangle_graph</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Builds a triangle graph, C3.
+Ref: <a href="http://mathworld.wolfram.com/CycleGraph.html">http://mathworld.wolfram.com/CycleGraph.html</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def build_triangle_graph():
+    &#34;&#34;&#34;Builds a triangle graph, C3.
+       Ref: http://mathworld.wolfram.com/CycleGraph.html&#34;&#34;&#34;
+    graph = build_cycle_graph(3)
+
+    return graph</code></pre>
+</details>
+</dd>
+<dt id="pygraph.predefined_graphs.build_wheel_graph"><code class="name flex">
+<span>def <span class="ident">build_wheel_graph</span></span>(<span>num_nodes)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Builds a wheel graph with the specified number of nodes.
+Ref: <a href="http://mathworld.wolfram.com/WheelGraph.html">http://mathworld.wolfram.com/WheelGraph.html</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def build_wheel_graph(num_nodes):
+    &#34;&#34;&#34;Builds a wheel graph with the specified number of nodes.
+       Ref: http://mathworld.wolfram.com/WheelGraph.html&#34;&#34;&#34;
+    # The easiest way to build a wheel graph is to build
+    # C_n-1 and then add a hub node and spoke edges
+    graph = build_cycle_graph(num_nodes - 1)
+
+    cycle_graph_vertices = graph.get_all_node_ids()
+
+    node_id = graph.new_node()
+    for cycle_node in cycle_graph_vertices:
+        graph.new_edge(node_id, cycle_node)
+
+    return graph</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="pygraph" href="index.html">pygraph</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="pygraph.predefined_graphs.build_5_cycle_graph" href="#pygraph.predefined_graphs.build_5_cycle_graph">build_5_cycle_graph</a></code></li>
+<li><code><a title="pygraph.predefined_graphs.build_chvatal_graph" href="#pygraph.predefined_graphs.build_chvatal_graph">build_chvatal_graph</a></code></li>
+<li><code><a title="pygraph.predefined_graphs.build_cycle_graph" href="#pygraph.predefined_graphs.build_cycle_graph">build_cycle_graph</a></code></li>
+<li><code><a title="pygraph.predefined_graphs.build_diamond_graph" href="#pygraph.predefined_graphs.build_diamond_graph">build_diamond_graph</a></code></li>
+<li><code><a title="pygraph.predefined_graphs.build_franklin_graph" href="#pygraph.predefined_graphs.build_franklin_graph">build_franklin_graph</a></code></li>
+<li><code><a title="pygraph.predefined_graphs.build_gem_graph" href="#pygraph.predefined_graphs.build_gem_graph">build_gem_graph</a></code></li>
+<li><code><a title="pygraph.predefined_graphs.build_groetzch_graph" href="#pygraph.predefined_graphs.build_groetzch_graph">build_groetzch_graph</a></code></li>
+<li><code><a title="pygraph.predefined_graphs.build_k33_graph" href="#pygraph.predefined_graphs.build_k33_graph">build_k33_graph</a></code></li>
+<li><code><a title="pygraph.predefined_graphs.build_k5_graph" href="#pygraph.predefined_graphs.build_k5_graph">build_k5_graph</a></code></li>
+<li><code><a title="pygraph.predefined_graphs.build_square_graph" href="#pygraph.predefined_graphs.build_square_graph">build_square_graph</a></code></li>
+<li><code><a title="pygraph.predefined_graphs.build_tetrahedral_graph" href="#pygraph.predefined_graphs.build_tetrahedral_graph">build_tetrahedral_graph</a></code></li>
+<li><code><a title="pygraph.predefined_graphs.build_triangle_graph" href="#pygraph.predefined_graphs.build_triangle_graph">build_triangle_graph</a></code></li>
+<li><code><a title="pygraph.predefined_graphs.build_wheel_graph" href="#pygraph.predefined_graphs.build_wheel_graph">build_wheel_graph</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
